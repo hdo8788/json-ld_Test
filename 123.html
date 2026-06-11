@@ -1,0 +1,79 @@
+﻿!<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+     <title></title>
+     <script type="text/javascript" src="Script/twcaCryptoLib.js"></script>
+     <script type="text/javascript" src="Script/idpaas.all.js"></script>
+ </head>
+<body>
+    ID:<input type="text" id="MyID" placeholder="" value="A123456789">
+    Phone:<input type="text" id="MyPhone" placeholder="" value="0900000000">
+    Birth:<input type="text" id="MyBirth" placeholder="" value="20000101">
+    ISP:<input type="text" id="ISP" value="46692">
+    clauseVer:<input type="text" id="clauseVer">
+    midWebInfo:<textarea id="webInfo"></textarea>
+    reqSeq:<input type="text" id="reqSeq">
+
+    <button id="step3Btn" onclick="executeStep3Real()">執行步驟 3</button>
+
+
+    <script>
+        function executeStep3Real() {
+            console.log("123")
+            const btn = document.getElementById('step3Btn');
+            const loading = document.getElementById('step3Loading');
+
+
+
+            const rocId = document.getElementById('MyID').value.trim();
+            const birthday = document.getElementById('MyBirth').value.trim();
+            const msisdn = document.getElementById('MyPhone').value.trim();
+            const operator = document.getElementById('ISP').value;
+            const clauseVer = document.getElementById('clauseVer').value.trim();
+            const businessNo = "0345840301";
+            const midAccount = "7075902802";
+            const midWebInfo = document.getElementById('webInfo').value.trim();
+            const reqSeq = document.getElementById('reqSeq').value.trim();
+
+            if (!rocId || !birthday || !msisdn || !operator) {
+                alert('請輸入完整的身分證字號、生日、手機號碼與電信業者。');
+                btn.disabled = false;
+                loading.style.display = 'none';
+                return;
+            }
+
+            if (!businessNo) {
+                alert('後端未傳回 businessNo，無法執行真實前端驗證。請先完成步驟 2 並確認 API 返回 businessNo。');
+                btn.disabled = false;
+                loading.style.display = 'none';
+                return;
+            }
+            console.log(window.twcaMidLibSS.doPaaSMidWeb)
+            if (typeof window.twcaMidLibSS === 'undefined' || typeof window.twcaMidLibSS.doPaaSMidWeb !== 'function') {
+                alert('無法找到 twcaMidLibSS.doPaaSMidWeb。請確認已正確引入 twcaCryptoLib.js 與 idpaas.all.js。');
+                btn.disabled = false;
+                loading.style.display = 'none';
+                return;
+            }
+
+            twcaMidLibSS.doPaaSMidWeb(
+                businessNo,
+                rocId,
+                birthday,
+                clauseVer,
+                operator,
+                msisdn,
+                midAccount,
+                midWebInfo,
+                reqSeq,
+                function (code, msg, reserved, data) {
+                    console.log(code);
+                    console.log(msg);
+                    console.log(reserved);
+                    console.log(data);
+                }
+            );
+        }
+
+    </script>
+</body>
+</html>
