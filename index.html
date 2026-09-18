@@ -12,13 +12,11 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "yhxj3n7sc9");
 </script>
-    
-        <script type="application/ld+json">
-     {
-"@context": "https://schema.org",
-"@graph": [
+    <!-- 1. 商品與金融產品區塊 -->
+<script type="application/ld+json">
 {
-"@type": "FinancialProduct",
+"@context": "https://schema.org",
+"@type": ["Product", "FinancialProduct"],
 "@id": "https://b2brec.skinsurance.com.tw/SKERP/ISNEControl/FrameControl.aspx?_LP=%2FSKERP%2FB2BWEB%2FHAS%2FBHAS205000.aspx",
 "name": "新光產物保險 - 個人旅行綜合保險",
 "description": "專為海外旅遊設計，涵蓋突發疾病醫療、行李遺失及航班延誤補償。",
@@ -54,8 +52,13 @@
 "availability": "https://schema.org/InStock",
 "validFrom": "2026-01-01"
 }
-},
+}
+</script>
+
+<!-- 2. 常見問題 (FAQPage) 區塊 -->
+<script type="application/ld+json">
 {
+"@context": "https://schema.org",
 "@type": "FAQPage",
 "mainEntity": [
 {
@@ -76,12 +79,9 @@
 }
 ]
 }
-]
-}
+</script>
 
-
-
-    </script>
+      
   </head>
   <body>
 <h1>您好，這是JSON-LD測試。3.0</h1>
